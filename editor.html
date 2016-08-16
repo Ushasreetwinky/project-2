@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <a href="index2.html">Git link</a>
+    <title>Editor</title>
+    <style type="text/css">
+        .text_edit {
+            width: 500px;
+            height: 300px;
+            resize: none;
+        }
+        #view_text {
+            width: 500px;
+        }
+   </style>
+   <script type="text/javascript">
+    function view_text () {
+        // Find html elements.
+        var textArea = document.getElementById('my_text');
+        var div = document.getElementById('view_text');
+        // text from textarea is put into one variable
+        var text = textArea.value;
+            text = text.replace(/\n/gi, "<br />")
+        // Print the text in the div made for it.
+        div.innerHTML = text;
+
+        var txtFile = "test.py";
+        var file = new File([""],txtFile);
+        var str = "My string of text";
+        text="hello hi jho"; 
+        file.open("w"); // open file with write access
+        file.write(text);
+        file.close();
+
+        file.open("r"); // open file with read acces"
+        var str = "";
+        while (!file.eof) {
+            // read each line of text
+            str += file.readln() + "\n";
+        }
+        file.close();
+        }
+</script>
+
+</head>
+<body>
+    <!-- Text area -->
+    <textarea class="text_edit" id="my_text"></textarea>
+    <br />
+    <!-- Submit button -->
+    <input type="button" value="Show text" onclick="view_text()" />
+    <!-- Empty div to put the text in -->
+    <div id="view_text">
+    </div>
+</body>
+</html>
