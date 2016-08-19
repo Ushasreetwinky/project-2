@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Highest LOC</title>
+	 <script  src="http://d3js.org/d3.v3.min.js"></script>
+	 <script src="jquery2.min.js"></script>
+</head>
+<body>  
+
+<script type="text/javascript">
+   /*var data
+$.get('/loc', function(_data){
+	data = _data
+	alert(data)
+	console.log(data)
+	})
+console.log(data)*/
+var locdata='{{dataset[1][0]}}'
+var locvalue='{{dataset[2]}}'
+alert(locdata)
+alert(locvalue)
+alert("suashasrtfe")
+		//Width and height
+		alert(typeof locvalue)
+		var data=locvalue.substring(1,locvalue.length-1).split(",")
+		total= data.pop()
+		alert(total)
+	var width = 250
+	var height = 250
+	var outerRadius = width/2
+	var innerRadius = 0
+	//Create SVG element
+	var svg = d3.select("body")
+	      .append("svg")
+	      .attr("width", width)
+	      .attr("height", height)
+	// pie layout function
+	var pie = d3.layout.pie()
+	var piedata = pie(data)
+	//Set up pie groups
+	var arcs = svg.selectAll("g")
+	        .data(piedata)
+	        .enter()
+	        .append("g")
+	        .attr("transform", "translate(" + outerRadius + "," + outerRadius + ")")
+	// Create arc function with parameters
+	var arc = d3.svg.arc()
+	        .innerRadius(innerRadius)
+	        .outerRadius(outerRadius)
+	// Draw arc paths
+	arcs.append("path")
+	    .attr("d", arc)
+	    // Create ordinal scale color palette
+	var color = d3.scale.category10();
+	// Draw arc paths
+	arcs.append("path")
+	    .attr("d", arc)
+	    .attr("fill", function(d, i) { return color(i) }) // Fill color
+	    // Labels
+	arcs.append("text")
+	    .attr("transform", function(d) {
+	      return "translate(" + arc.centroid(d) + ")"
+	    })
+	    .attr("text-anchor", "end")
+	    .text(function(d) {return d.value})
+</script>
+</body>
+</html>
