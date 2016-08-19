@@ -1,0 +1,17 @@
+app:
+    browser: /
+    settings:
+      autoreload: True
+      debug: False
+    listen:
+      port: 9051
+
+url:
+    get_data:
+        pattern: /loc
+        handler: gramex.handlers.FunctionHandler
+        kwargs:
+            function: highest_loc/max_loc_data
+            args: [23]
+        headers:
+            Content-Type: application/json
