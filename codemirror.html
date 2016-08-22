@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>EditorPad</title>
+	<script src="lib/codemirror.js"></script>
+	<link rel="stylesheet" href="lib/codemirror.css">
+	<script src="mode/javascript/javascript.js"></script> 
+	<style type="text/css">
+        .text_edit {
+            width: 500px;
+            height: 300px;
+            resize: none;
+        }
+        #view_text {
+            width: 500px;
+        }
+   </style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		var myCodeMirror = CodeMirror(document.body);
+		var myCodeMirror = CodeMirror(document.body, {
+		  value: "function myScript(){return 100;}\n",
+		  mode:  "javascript"
+		});
+
+	</script>   <input type="button" value="Run" onclick="view_text()" />
+    <!-- Empty div to put the text in -->
+    <div id="view_text">
+    </div>
+</body>
+</html>
