@@ -4,14 +4,22 @@ app:
       autoreload: True
       debug: False
     listen:
-      port: 9051
+      port: 9054
 
 url:
     get_data:
         pattern: /loc
         handler: gramex.handlers.FunctionHandler
         kwargs:
-            function: highest_loc/max_loc_data
+            function: highest_loc.max_loc_data
             args: [23]
         headers:
             Content-Type: application/json
+    editorr:
+      pattern: /editor
+      handler: gramex.handlers.FunctionHandler
+      kwargs:
+        function: index.edit
+        args: [23]
+      headers:
+        Content-Type: application/json
