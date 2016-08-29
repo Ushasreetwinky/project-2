@@ -6,6 +6,7 @@ app:
     listen:
       port: 9054
 
+ 
 url:
     get_data:
         pattern: /loc
@@ -23,3 +24,12 @@ url:
         args: [23]
       headers:
         Content-Type: application/json
+    output:
+      pattern: /result
+      handler: gramex.handlers.FunctionHandler
+      kwargs:
+        function: hack.result
+        args: [23]
+      headers:
+        Content-Type: application/json
+
