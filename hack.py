@@ -1,7 +1,10 @@
-import sys
-import subprocess
+from subprocess import Popen, PIPE
+import json
 
-def result(*temp):
-	s2_out = subprocess.check_output([sys.executable, "new11.py", "34"])
-	print s2_out
-	return JSON.dumps(s2_out)
+p = Popen("python new11.py", stderr=PIPE, stdout=PIPE, shell=True)
+output, errors = p.communicate()
+print  [errors, output]
+file = open("newfile.txt", "w")
+file.write(output)
+file.write(errors)
+file.close()
