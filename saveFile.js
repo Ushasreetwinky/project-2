@@ -7,6 +7,12 @@ var async = require('async');
 var app = express();
  var path = require('path')
 
+
+
+var express = require('express');
+var app = express();
+app.use('/', express.static(__dirname + '/public'));
+
 app.use(express.static(path.join('lib'+ '/public')));
 var server = http.createServer(function (req, res) {
     if (req.method.toLowerCase() == 'get') {
@@ -17,9 +23,11 @@ var server = http.createServer(function (req, res) {
 
 });
 
+
+
 function displayForm(res) {
 
-	 fs.readFile('editor.html', function (err, data) {
+	 fs.readFile('index1.html', function (err, data) {
         res.writeHead(200, {
             'Content-Type': 'text/html',
                 'Content-Length': data.length
@@ -45,21 +53,21 @@ function processAllFieldsOfTheForm(req, res) {
             }
             console.log("The file was saved!");
         });
-		var PythonShell = require('python-shell');
-		var pyshell = new PythonShell('new11.py');
-		pyshell.on('message', function (message) {
-			// received a message sent from the Python script
-			console.log(message);
+        var PythonShell = require('python-shell');
+        var pyshell = new PythonShell('hack.py');
+        pyshell.on('message', function (message) {
+            // received a message sent from the Python script
+            console.log(message);
 
-	res.end(message);
-			
-		});
-		// end the input stream and allow the process to exit 
-		pyshell.end(function (err) {
-			if (err) throw err;
-			console.log('finished');
-		});
-	});;
+    res.end(message);
+            
+        });
+        // end the input stream and allow the process to exit 
+        pyshell.end(function (err) {
+            if (err) throw err;
+            console.log('finished');
+        });
+    });
 }
 server.listen(1185);
 console.log("server listening on 1185");
