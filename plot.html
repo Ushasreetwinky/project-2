@@ -7,27 +7,82 @@
 	 <script src="jquery2.min.js"></script>
 </head>
 <body>  
+<div id="details"></div>
 <script type="text/javascript">
 
-var svg = d3.select("body")
-             .append("svg")
-             .attr("width", 250)
-             .attr("height", 250)
-             .attr("border",2)
-
-   
 
 d3.csv("loc.csv", function(data) {
- svg.selectAll("rect")
-    .data(data).enter()
-    .append("rect")
-    .attr('x', 0)
-    .attr('y', function(d,i) {return i * 30})
-    .attr('width', function(d) {return d.gold})
-    .attr('height', 25)
-})
+    var dataset=[],language=[]
+    var title=data[0].name+" : "+data[0].project
+    for (var i = 0; i < data.length-1; i++) {
+       dataset[i]=data[i].loc
+       language[i]=data[i].language
+    }
+ var width = 400
+var height = 400
+var outerRadius = (width-150)/2
+var innerRadius = 0
+//Create SVG element
+var svg = d3.select("body")
+      .append("svg")
+      .attr("width", width+100)
+      .attr("height", height)
+// pie layout function
+svg.append("text")
+        .attr("x", 150)             
+        .attr("y", 300)
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .style("text-decoration", "underline")  
+        .text(title);
+var pie = d3.layout.pie()
+var piedata = pie(dataset)
+//Set up pie groups
+var arcs = svg.selectAll("g")
+        .data(piedata)
+        .enter()
+        .append("g")
+        .attr("transform", "translate(" + outerRadius + "," + outerRadius + ")")
+// Create arc function with parameters
+var arc = d3.svg.arc()
+        .innerRadius(innerRadius)
+        .outerRadius(outerRadius)
+// Draw arc paths
+arcs.append("path")
+    .attr("d", arc)
+// Create ordinal scale color palette
+var color = d3.scale.category10();
+// Draw arc paths
+arcs.append("path")
+    .attr("d", arc)
+    .attr("fill", function(d, i) { return color(i) }) // Fill color
 
-	  
+    arcs.append("text")
+        .attr("transform", function(d) {
+          return "translate(" + arc.centroid(d) + ")"
+        })
+        .attr("text-anchor", "end")
+        .text(function(d,i) {return d.value+":"+language[i]})
+        
+
+
+
+      .on("mouseenter", function(d,i) {
+              //console.log("mousein")
+              text = arcs.append("text")
+                  .attr("transform", arc.centroid(d))
+                  .attr("dy", ".5em")
+                  .style("text-anchor", "middle")
+                  .style("fill", "blue")
+                  .attr("class", "on")
+                  .text(d.value+":"+language[i]);
+      })
+
+      .on("mouseout", function(d) {
+               text.remove();
+      });
+      })
+
 </script><br>
 </br>
 </body>
