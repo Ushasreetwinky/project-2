@@ -45,14 +45,15 @@ def max_loc_data(*temp):
 		while i<len(max_data)-1:
 			_data=[]
 			_data.append(max_data[0])
-			_data.append(max_data[1])
+			_data.append(max_data[1].replace("-"," "))
 			_data.append(max_data[i].replace(":",""))
 			_data.append(int(max_data[i+1]))
 			i+=2
 			completedata.append(_data)
 			pass
 		with open('loc.csv', 'wb') as csvfile:
-			writer = csv.DictWriter(csvfile, fieldnames = ["name", "project", "language","loc"],)
+			writer = csv.DictWriter(csvfile, fieldnames = ["name", "project", "language","loc"])
+			writer.writerow({'name': "name", 'project': "project", 'language': "language",'loc':"loc"})
 			writer.writerows({'name': row[0], 'project': row[1], 'language': row[2],'loc':row[3] } for row in completedata)
 		return  json.dumps(completedata)
 	#return render_template("loc_plot.html",dataset=completedata)
