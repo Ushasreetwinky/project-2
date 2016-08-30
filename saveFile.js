@@ -15,15 +15,42 @@ app.use('/', express.static(__dirname + '/public'));
 
 app.use(express.static(path.join('lib'+ '/public')));
 var server = http.createServer(function (req, res) {
-    if (req.method.toLowerCase() == 'get') {
-        displayForm(res);
-    } else if (req.method.toLowerCase() == 'post') {
-        processAllFieldsOfTheForm(req, res);
-    }
+    
 
 });
 
-
+var server=http.createServer(function (req, res) {
+    console.log('req starting...');
+    
+    var filePath = '.' + req.url;
+    if (filePath == './')
+        filePath = './index.htm';
+    if (req.method.toLowerCase() == 'get') {
+       path.exists(filePath, function(exists) {
+    
+        if (exists) {
+            fs.readFile(filePath, function(error, content) {
+                if (error) {
+                    res.writeHead(500);
+                    res.end();
+                }
+                else {
+                    res.writeHead(200, { 'Content-Type': 'text/html' });
+                    res.end(content, 'utf-8');
+                }
+            });
+        }
+        else {
+            res.writeHead(404);
+            res.end();
+        }
+    });
+    } else if (req.method.toLowerCase() == 'post') {
+        processAllFieldsOfTheForm(req, res);
+    }
+    
+    
+})
 
 function displayForm(res) {
 
@@ -59,7 +86,6 @@ function processAllFieldsOfTheForm(req, res) {
             // received a message sent from the Python script
             console.log(message);
 
-    res.end(message);
             
         });
         // end the input stream and allow the process to exit 
