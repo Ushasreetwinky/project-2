@@ -1,20 +1,60 @@
 <!DOCTYPE html>
+<meta charset="utf-8"/>
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-    $("button").click(function(){
-        $("#div1").load("newfile.txt");
-    });
+	<title>result</title>
+	 <script  src="http://d3js.org/d3.v3.min.js"></script>
+	 <script src="jquery2.min.js"></script>
+</head>
+<body>  
+<script type="text/javascript">
+      
+d3.csv("ouput.csv", function(data) {
+    console.log(data[0])
+ var width = 300
+var height = 300
+var value=""
+for (var i = 0; i < data.length; i++) {
+	value+=data[i].output
+}
+//Create SVG element
+var svg = d3.select("body")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+// pie layout function
+for (var i = 0; i < data.length; i++) {
+	var text=svg.append("text")
+		.attr("d",data)
+        .attr("x", 100)             
+        .attr("y", i*1.2+1+"em")
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px")   
+        .text(data[i].output)
+}
+
+
+
+     text.append("text")       
+    .each(function (d) {
+    var arr = value.split(",");
+    for (i = 0; i < arr.length; i++) {
+        d3.select(this).append("tspan")
+            .text(arr[i])
+            .attr("dy", i ? "1.2em" : 0)
+            .attr("x", 0)
+            .attr("text-anchor", "middle")
+            .attr("class", "tspan" + i);
+    }
 });
+
+      })
+
+    </script>
 </script>
 </head>
 <body>
 
-<div id="div1"><h2>Let jQuery AJAX Change This Text</h2></div>
-
-<button>Get External Content</button>
 
 </body>
 </html>
