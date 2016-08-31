@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <script  src="http://d3js.org/d3.v3.min.js"></script>
+   <script src="jquery2.min.js"></script>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#myPage">Logo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="index1.html">HOME</a></li>
+        <li><a href="plot.html">GIT</a></li>
+        <li><a href="top5.html">TOP5</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Merchandise</a></li>
+            <li><a href="#">Extras</a></li>
+            <li><a href="#">Media</a></li>
+          </ul>
+        </li>
+        <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+</head>
+<body style="margin:50px">
+<svg>
+<script type="text/javascript">
+d3.csv("top5.csv", function(_data) {
+    var data=[]
+    var details=[]
+    for (var i = 0; i < _data.length; i++) {
+        data[i]=_data[i].loc
+        details[i]=_data[i].project_details
+    }
+    var scale = d3.scale.linear()
+              .domain([0, d3.max(data)])
+              .range([0, 250])
+              
+    var svg = d3.select("svg")
+          .attr("width", d3.max(data)+50)
+          .attr("height", 250)
+
+    var chart = d3.select('svg').selectAll('rect')
+      .data(data).enter()
+      .append('rect')
+      .attr('x', 0)
+      .attr('y', function(d,i) {return i * 30})
+      .attr('width', function(d) {return scale(d)})
+      .attr('height', 25)
+      .attr("fill","LightGray")
+
+
+    d3.select('svg').selectAll("text")
+      .data(data)
+      .enter()
+      .append("text")
+      .text(function(d,i) {return d+"...."+details[i]})
+      .attr("y", function(d,i) {return i*30 + 15})
+      .attr("x", function(d) {return scale(d)-44})
+      .attr("font-family", "sans-serif")
+      .attr("font-size", "10px")
+      .attr("fill", "black")
+})
+
+</script>
+</svg>
+</body>
+</html>
