@@ -51,6 +51,15 @@ def max_loc_data(*temp):
 			i+=2
 			completedata.append(_data)
 			pass
+		with open('top5.csv','wb') as csvf:
+			#writer = csv.writer(csvf, quoting=csv.QUOTE_MINIMAL)
+			writer = csv.DictWriter(csvf, fieldnames = ["project_details", "loc"])
+			writer.writerow({'project_details':"project_details",'loc':"loc"})
+			j=0
+			for project in max_5:
+				proj=project[0]+":"+project[1]
+				writer.writerow({'project_details':proj, 'loc':loc_5[j]})
+				j+=1
 		with open('loc.csv', 'wb') as csvfile:
 			writer = csv.DictWriter(csvfile, fieldnames = ["name", "project", "language","loc"])
 			writer.writerow({'name': "name", 'project': "project", 'language': "language",'loc':"loc"})
