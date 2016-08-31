@@ -1,19 +1,55 @@
 <!DOCTYPE html>
-<meta charset="utf-8"/>
 <html>
 <head>
-	<title>Highest LOC</title>
-	 <script  src="http://d3js.org/d3.v3.min.js"></script>
-	 <script src="jquery2.min.js"></script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <script  src="http://d3js.org/d3.v3.min.js"></script>
+   <script src="jquery2.min.js"></script>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#myPage">Logo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="index1.html">HOME</a></li>
+        <li><a href="plot.html">GIT</a></li>
+        <li><a href="top5.html">TOP5</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Merchandise</a></li>
+            <li><a href="#">Extras</a></li>
+            <li><a href="#">Media</a></li>
+          </ul>
+        </li>
+        <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
 </head>
-<body>  
+<body style="margin:50px">
 <div id="details"></div>
 <script type="text/javascript">
 
 
 d3.csv("loc.csv", function(data) {
     var dataset=[],language=[]
-    var title=data[0].name+" : "+data[0].project
+    var title=data[0].name.toUpperCase()+" : "+data[0].project.toUpperCase()
     for (var i = 0; i < data.length-1; i++) {
        dataset[i]=data[i].loc
        language[i]=data[i].language
@@ -25,7 +61,6 @@ var innerRadius = 0
 //Create SVG element
 var svg = d3.select("body")
       .append("svg")
-      .attr("width", width+100)
       .attr("height", height)
 // pie layout function
 svg.append("text")
@@ -33,7 +68,7 @@ svg.append("text")
         .attr("y", 300)
         .attr("text-anchor", "middle")  
         .style("font-size", "16px") 
-        .style("text-decoration", "underline")  
+        .style("font-weight","bold")
         .text(title);
 var pie = d3.layout.pie()
 var piedata = pie(dataset)
@@ -57,16 +92,6 @@ arcs.append("path")
     .attr("d", arc)
     .attr("fill", function(d, i) { return color(i) }) // Fill color
 
-    arcs.append("text")
-        .attr("transform", function(d) {
-          return "translate(" + arc.centroid(d) + ")"
-        })
-        .attr("text-anchor", "end")
-        .text(function(d,i) {return d.value+":"+language[i]})
-        
-
-
-
       .on("mouseenter", function(d,i) {
               //console.log("mousein")
               text = arcs.append("text")
@@ -85,5 +110,3 @@ arcs.append("path")
 
 </script><br>
 </br>
-</body>
-</html>
