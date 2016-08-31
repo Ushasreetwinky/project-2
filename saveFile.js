@@ -48,8 +48,6 @@ var server=http.createServer(function (req, res) {
     } else if (req.method.toLowerCase() == 'post') {
         processAllFieldsOfTheForm(req, res);
     }
-    
-    
 })
 
 function displayForm(res) {
@@ -74,7 +72,7 @@ function processAllFieldsOfTheForm(req, res) {
         res.writeHead(200, {
             'content-type': 'text/plain'
         });
-        fs.writeFile('new11.py', fields.code, function (err) {
+        fs.writeFile('output.py', fields.code, function (err) {
         	if(err) {
         		return console.log(err);
             }
