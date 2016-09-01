@@ -7,24 +7,20 @@
 </head>
 <body>  
 
+<div id="details">hello</div>
 <script type="text/javascript">
-   /*var data
+   var jsondata
+   alert("not entered")
 $.get('/loc', function(_data){
-	data = _data
-	alert(data)
-	console.log(data)
-	})
-console.log(data)*/
-var locdata='{{dataset[1][0]}}'
-var locvalue='{{dataset[2]}}'
-alert(locdata)
-alert(locvalue)
-alert("suashasrtfe")
-		//Width and height
-		alert(typeof locvalue)
-		var data=locvalue.substring(1,locvalue.length-1).split(",")
+	jsondata = _data
+	alert(jsondata)
+	//alert("sree")
+	console.log(datalist)
+	var datalist=JSON.parse(jsondata) 
+	var locdata=datalist[1]
+	var locvalue=datalist[2]
+		var data=locvalue
 		total= data.pop()
-		alert(total)
 	var width = 250
 	var height = 250
 	var outerRadius = width/2
@@ -62,7 +58,11 @@ alert("suashasrtfe")
 	      return "translate(" + arc.centroid(d) + ")"
 	    })
 	    .attr("text-anchor", "end")
-	    .text(function(d) {return d.value})
-</script>
+	    .text(function(d,i) {return d.value,locdata[i]})
+	var abc=document.getElementById('details')
+	abc.innerHTML("suhasreeee")
+	  })
+</script><br>
+</br>
 </body>
 </html>
