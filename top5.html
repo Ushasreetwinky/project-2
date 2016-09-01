@@ -10,7 +10,7 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  <script  src="http://d3js.org/d3.v3.min.js"></script>
    <script src="jquery2.min.js"></script>
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top" style="background-color: #B7DBE1">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -18,31 +18,20 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#myPage">Logo</a>
+      <a class="navbar-brand" href="#myPage">Codepad</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="index1.html">HOME</a></li>
-        <li><a href="plot.html">GIT</a></li>
-        <li><a href="top5.html">TOP5</a></li>
-        <li><a href="#contact">CONTACT</a></li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
-          <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Merchandise</a></li>
-            <li><a href="#">Extras</a></li>
-            <li><a href="#">Media</a></li>
-          </ul>
-        </li>
-        <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+        <li><a href="plot.html" >GIT</a></li>
+        <li><a href="top5.html"  style="color: #1E31C4">TOP5</a></li>
+        <li><a href="complete_loc.html">CONTACT</a></li>
       </ul>
     </div>
   </div>
 </nav>
-
 </head>
-<body style="margin:50px">
+<body style="margin:80px">
 <svg>
 <script type="text/javascript">
 d3.csv("top5.csv", function(_data) {
@@ -58,7 +47,7 @@ d3.csv("top5.csv", function(_data) {
               
     var svg = d3.select("svg")
           .attr("width", d3.max(data)+50)
-          .attr("height", 250)
+          .attr("height", 180)
 
     var chart = d3.select('svg').selectAll('rect')
       .data(data).enter()
@@ -84,5 +73,6 @@ d3.csv("top5.csv", function(_data) {
 
 </script>
 </svg>
+<h2> Top 5 projects with maximum lines of code </h2>
 </body>
 </html>
