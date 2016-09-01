@@ -10,7 +10,7 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  <script  src="http://d3js.org/d3.v3.min.js"></script>
    <script src="jquery2.min.js"></script>
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top" style="background-color: #B7DBE1">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -18,29 +18,20 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#myPage">Logo</a>
+      <a class="navbar-brand" href="#myPage">Codepad</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="index1.html">HOME</a></li>
-        <li><a href="plot.html">GIT</a></li>
+        <li><a href="plot.html"  style="color: #1E31C4">GIT</a></li>
         <li><a href="top5.html">TOP5</a></li>
-        <li><a href="#contact">CONTACT</a></li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
-          <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Merchandise</a></li>
-            <li><a href="#">Extras</a></li>
-            <li><a href="#">Media</a></li>
-          </ul>
-        </li>
-        <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+        <li><a href="complete_loc.html">Projects</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
+<h2> Highest LOC </h2>
 </head>
 <body style="margin:50px">
 <div id="details"></div>
@@ -56,16 +47,17 @@ d3.csv("loc.csv", function(data) {
     }
  var width = 400
 var height = 400
-var outerRadius = (width-150)/2
+var outerRadius = (width-50)/2
 var innerRadius = 0
 //Create SVG element
 var svg = d3.select("body")
       .append("svg")
       .attr("height", height)
+      .attr("width",width)
 // pie layout function
 svg.append("text")
         .attr("x", 150)             
-        .attr("y", 300)
+        .attr("y", 380)
         .attr("text-anchor", "middle")  
         .style("font-size", "16px") 
         .style("font-weight","bold")
