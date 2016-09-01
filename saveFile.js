@@ -69,17 +69,29 @@ function processAllFieldsOfTheForm(req, res) {
         //Store the data from the fields in your data store.
         //The data store could be a file or database or any other store based
         //on your application.
+        var filename;
+        if (fields.language=="javascript") {
+            filename="output.js"
+        }
+        else{
+            filename="output.py"
+        }
+        console.log("language")
+        console.log(fields.language)
         res.writeHead(200, {
             'content-type': 'text/plain'
         });
-        fs.writeFile('output.py', fields.code, function (err) {
+        fs.writeFile(filename, fields.code, function (err) {
         	if(err) {
         		return console.log(err);
             }
             console.log("The file was saved!");
         });
+        var options = {
+            args: [filename]
+        };
         var PythonShell = require('python-shell');
-        var pyshell = new PythonShell('hack.py');
+        var pyshell = new PythonShell('hack.py',options);
         pyshell.on('message', function (message) {
             // received a message sent from the Python script
             console.log(message);
