@@ -9710,7 +9710,7 @@ span.CodeMirror-selectedtext { background: none; }
           else position="middle"
               var margin = {left:80, top:40}
                var width = 8000
-              var height = 400
+              var height = 8000
               var value=""
               for (var i = 0; i < data.length; i++) {
                 value+=data[i].output
@@ -9728,7 +9728,7 @@ span.CodeMirror-selectedtext { background: none; }
                   .attr("d",data)
                       .attr("x", 100)             
                       .attr("y", i*1.2+1+"em")
-                      .attr("text-anchor", position)  
+                      .attr("text-anchor", "left")  
                       .style("font-size", "16px")   
                       .text(data[i].output)
               }
