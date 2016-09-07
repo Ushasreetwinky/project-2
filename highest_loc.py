@@ -2,15 +2,14 @@ import csv
 import json
 from flask import Flask, render_template, request
 import subprocess
-import subprocess
 import sys
 
 
 def max_loc_data(*temp):
-	#s1_out = subprocess.check_output([sys.executable, "project_details.py", "34"])
-	#print s1_out
-	#s2_out = subprocess.check_output([sys.executable, "loc.py", "34"])
-	#print s2_out
+	s1_out = subprocess.check_output([sys.executable, "project_details.py", "34"])
+	print s1_out
+	s2_out = subprocess.check_output([sys.executable, "loc.py", "34"])
+	print s2_out
 	with open('loc_projects.csv','r') as csvfile:
 		reader = csv.reader(csvfile, delimiter='\t')
 		loc_max=0
