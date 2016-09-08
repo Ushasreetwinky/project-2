@@ -50,9 +50,9 @@ var server=http.createServer(function (req, res) {
     }
 })
 
-function displayForm(res) {
+function displayForm(name,res) {
 
-	 fs.readFile('index1.html', function (err, data) {
+	 fs.readFile(name, function (err, data) {
         res.writeHead(200, {
             'Content-Type': 'text/html',
                 'Content-Length': data.length
@@ -70,40 +70,71 @@ function processAllFieldsOfTheForm(req, res) {
         //The data store could be a file or database or any other store based
         //on your application.
         var filename;
-        if (fields.language=="javascript") {
-            filename="output.js"
+        if (typeof(fields.username)=="string") {
+        	 res.writeHead(200, {
+	            'content-type': 'text/plain'
+	        });
+	        fs.writeFile("login.txt",[fields.username,fields.password], function (err) {
+	        	if(err) {
+	        		return console.log(err);
+	            }
+	            console.log("The file was saved!");
+	        });
+	        var PythonShell = require('python-shell');
+	        var pyshell = new PythonShell('login.py');
+	        pyshell.on('message', function (message) {
+	            // received a message sent from the Python script
+	            if (message=="success") {
+	            	displayForm("index1.html",res);
+	            }
+	            else{
+	            	displayForm("login.html",res);
+	            }
+	        });
+	        // end the input stream and allow the process to exit 
+	        pyshell.end(function (err) {
+	            if (err) throw err;
+	            console.log('finished');
+	        });
         }
         else{
-            filename="output.py"
-        }
-        console.log("language")
-        console.log(fields.language)
-        res.writeHead(200, {
-            'content-type': 'text/plain'
-        });
-        fs.writeFile(filename, fields.code, function (err) {
-        	if(err) {
-        		return console.log(err);
-            }
-            console.log("The file was saved!");
-        });
-        var options = {
-            args: [filename]
-        };
-        var PythonShell = require('python-shell');
-        var pyshell = new PythonShell('hack.py',options);
-        pyshell.on('message', function (message) {
-            // received a message sent from the Python script
-            console.log(message);
+	        if (fields.language=="javascript") {
+	            filename="output.js"
+	        }
+	        else{
+	            filename="output.py"
+	        }
+	        console.log("language")
+	        console.log(fields.language)
+	        res.writeHead(200, {
+	            'content-type': 'text/plain'
+	        });
+	        fs.writeFile(filename, fields.code, function (err) {
+	        	if(err) {
+	        		return console.log(err);
+	            }
+	            console.log("The file was saved!");
+	        });
+	        var options = {
+	            args: [filename]
+	        };
+	        var PythonShell = require('python-shell');
+	        var pyshell = new PythonShell('hack.py',options);
+	        pyshell.on('message', function (message) {
+	            // received a message sent from the Python script
+	            console.log(message);
 
-            
-        });
-        // end the input stream and allow the process to exit 
-        pyshell.end(function (err) {
-            if (err) throw err;
-            console.log('finished');
-        });
-    });
+	            
+	        });
+	        // end the input stream and allow the process to exit 
+	        pyshell.end(function (err) {
+	            if (err) throw err;
+	            console.log('finished');
+	        });
+	    }
+	});
 }
-server.listen(1185);
+
+   server.listen(1158,'127.0.0.2')
+ 
 console.log("server listening on 1185");
