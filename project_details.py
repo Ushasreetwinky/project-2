@@ -9,13 +9,19 @@ br = mechanize.Browser()
 br.open('https://code.gramener.com/users/sign_in?redirect_to_referer=yes')
 # form selection by predicate function
 br.select_form(predicate=select_form)
+file = open('login.txt', 'r')
+details=file.read().split(",")
 # user authentication details
-br.form['user[login]'] = 'ushasree.ginne@gramener.com'
-br.form['user[password]'] = 'Ananya28'
+br.form['user[login]'] = details[0]
+br.form['user[password]'] = details[1]
 res = br.submit()
 final = res.geturl()
 page = 1
 boo = True
+if details[0].index("@")>0:
+    details[0]=details[0].split("@")[0]
+    print details[0]
+    pass
 print "opening file..."
 file=open('projects.txt','w')
 while boo:
@@ -28,7 +34,7 @@ while boo:
     soup = BeautifulSoup(br.response().read(), 'lxml')
     for record in soup.findAll("a", attrs={"class": "project"}):
         '''traversing project names in one page'''
-        file.write("https://ushasree.ginne:Ananya28@code.gramener.com"+record.get('href')+".git")
+        file.write("https://"+details[0]+":"+details[1]+"@code.gramener.com"+record.get('href')+".git")
         file.write("\n")
     for record in soup.findAll("div", attrs={"class": "gl-pagination"}):
         ''' finding the availability of next page'''
